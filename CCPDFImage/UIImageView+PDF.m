@@ -13,9 +13,9 @@
 
 - (void) setimageVithPDF:(NSString *)url size:(CGSize)size pageIndex:(NSUInteger)pageIndex success: (void (^)(UIImage * image))success fail: (void (^)(NSError * error))fail {
     
-    [[DSPDFImage instance] generateImageWithPDF:url size:size pageIndex:pageIndex success:^(UIImage *image) {
+    [[CCPDFImage instance] generateImageWithPDF:url size:size pageIndex:pageIndex success:^(UIImage *image) {
         self.image = image;
-    //success:success;
+        success(image);
     } fail:fail];
 }
 
