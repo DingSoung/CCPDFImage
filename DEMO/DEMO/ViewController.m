@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "UIImageView+PDF.h"
+#import "DEMO-Swift.h"
 
 @interface ViewController ()
 
@@ -24,13 +24,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    
     NSArray *imageViews = @[self.imageL1, self.imageL2, self.imageL3, self.imageL4];
     for (UIImageView *imageView in imageViews) {
         if ([imageView isKindOfClass:[UIImageView class]]) {
-            [imageView setimageVithPDF:@"Group" size:imageView.bounds.size pageIndex:1 success:^(UIImage *image) {
+            //[imageView setImageWithPDF:@"Group"];
+            
+            [imageView setImageVithPDF:@"Group" size:imageView.bounds.size pageIndex:1 success:^(UIImage * image) {
                 NSLog(@"%@", image);
-            } fail:^(NSError *error) {
+            } fail:^(NSError * error) {
                 NSLog(@"%@", error.domain);
             }];
         }

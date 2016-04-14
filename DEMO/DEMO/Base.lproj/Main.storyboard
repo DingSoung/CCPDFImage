@@ -172,13 +172,13 @@
                                 <exclude reference="DNe-6G-TXO"/>
                                 <exclude reference="b7A-8R-9Cx"/>
                                 <exclude reference="m7L-av-5kG"/>
+                                <exclude reference="tZP-3j-Si0"/>
                                 <exclude reference="DF8-Lv-RYO"/>
                                 <exclude reference="Us6-dQ-Gvj"/>
                                 <exclude reference="dsX-gE-Gsi"/>
-                                <exclude reference="tZP-3j-Si0"/>
-                                <exclude reference="WiH-HL-haP"/>
                                 <exclude reference="MS4-Nm-Pus"/>
                                 <exclude reference="yA0-P6-g4O"/>
+                                <exclude reference="WiH-HL-haP"/>
                             </mask>
                         </variation>
                     </view>

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE3D4B431CBF908B001BADEA /* UIImageView+PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3D4B421CBF908B001BADEA /* UIImageView+PDF.swift */; };
+		CEB19A7E1CBF3F350021DB14 /* CCPDFImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB19A7D1CBF3F350021DB14 /* CCPDFImage.swift */; };
 		FAC0C5D91CBBC1280088C5A8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC0C5D81CBBC1280088C5A8 /* main.m */; };
 		FAC0C5DC1CBBC1280088C5A8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC0C5DB1CBBC1280088C5A8 /* AppDelegate.m */; };
 		FAC0C5DF1CBBC1280088C5A8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC0C5DE1CBBC1280088C5A8 /* ViewController.m */; };
@@ -16,8 +18,6 @@
 		FAC0C5EA1CBBC1290088C5A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAC0C5E81CBBC1290088C5A8 /* LaunchScreen.storyboard */; };
 		FAC0C5F51CBBC1290088C5A8 /* DEMOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC0C5F41CBBC1290088C5A8 /* DEMOTests.m */; };
 		FAC0C6001CBBC1290088C5A8 /* DEMOUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC0C5FF1CBBC1290088C5A8 /* DEMOUITests.m */; };
-		FAC0C6121CBBC1BB0088C5A8 /* CCPDFImage.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC0C60F1CBBC1BB0088C5A8 /* CCPDFImage.m */; };
-		FAC0C6131CBBC1BB0088C5A8 /* UIImageView+PDF.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC0C6111CBBC1BB0088C5A8 /* UIImageView+PDF.m */; };
 		FAC0C6151CBBC9140088C5A8 /* Group.pdf in Resources */ = {isa = PBXBuildFile; fileRef = FAC0C6141CBBC9140088C5A8 /* Group.pdf */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE3D4B421CBF908B001BADEA /* UIImageView+PDF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+PDF.swift"; sourceTree = "<group>"; };
+		CEB19A7D1CBF3F350021DB14 /* CCPDFImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCPDFImage.swift; sourceTree = "<group>"; };
 		FAC0C5D41CBBC1280088C5A8 /* DEMO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DEMO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC0C5D81CBBC1280088C5A8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FAC0C5DA1CBBC1280088C5A8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -56,10 +58,6 @@
 		FAC0C5FB1CBBC1290088C5A8 /* DEMOUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DEMOUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC0C5FF1CBBC1290088C5A8 /* DEMOUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DEMOUITests.m; sourceTree = "<group>"; };
 		FAC0C6011CBBC1290088C5A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FAC0C60E1CBBC1BB0088C5A8 /* CCPDFImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPDFImage.h; sourceTree = "<group>"; };
-		FAC0C60F1CBBC1BB0088C5A8 /* CCPDFImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPDFImage.m; sourceTree = "<group>"; };
-		FAC0C6101CBBC1BB0088C5A8 /* UIImageView+PDF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+PDF.h"; sourceTree = "<group>"; };
-		FAC0C6111CBBC1BB0088C5A8 /* UIImageView+PDF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+PDF.m"; sourceTree = "<group>"; };
 		FAC0C6141CBBC9140088C5A8 /* Group.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Group.pdf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,10 +154,8 @@
 		FAC0C60D1CBBC1BB0088C5A8 /* CCPDFImage */ = {
 			isa = PBXGroup;
 			children = (
-				FAC0C60E1CBBC1BB0088C5A8 /* CCPDFImage.h */,
-				FAC0C60F1CBBC1BB0088C5A8 /* CCPDFImage.m */,
-				FAC0C6101CBBC1BB0088C5A8 /* UIImageView+PDF.h */,
-				FAC0C6111CBBC1BB0088C5A8 /* UIImageView+PDF.m */,
+				CEB19A7D1CBF3F350021DB14 /* CCPDFImage.swift */,
+				CE3D4B421CBF908B001BADEA /* UIImageView+PDF.swift */,
 			);
 			name = CCPDFImage;
 			path = ../CCPDFImage;
@@ -297,10 +293,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAC0C5DF1CBBC1280088C5A8 /* ViewController.m in Sources */,
-				FAC0C6131CBBC1BB0088C5A8 /* UIImageView+PDF.m in Sources */,
-				FAC0C6121CBBC1BB0088C5A8 /* CCPDFImage.m in Sources */,
 				FAC0C5DC1CBBC1280088C5A8 /* AppDelegate.m in Sources */,
+				CE3D4B431CBF908B001BADEA /* UIImageView+PDF.swift in Sources */,
 				FAC0C5E51CBBC1280088C5A8 /* DEMO.xcdatamodeld in Sources */,
+				CEB19A7E1CBF3F350021DB14 /* CCPDFImage.swift in Sources */,
 				FAC0C5D91CBBC1280088C5A8 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -444,10 +440,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = DEMO/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dingsoung.DEMO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -455,7 +454,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = DEMO/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dingsoung.DEMO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
