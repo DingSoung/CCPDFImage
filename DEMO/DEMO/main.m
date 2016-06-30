@@ -2,8 +2,8 @@
 //  main.m
 //  DEMO
 //
-//  Created by Alex D. on 4/11/16.
-//  Copyright © 2016 ifnil. All rights reserved.
+//  Created by Songwen Ding on 6/30/16.
+//  Copyright © 2016 Songwen Ding. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
