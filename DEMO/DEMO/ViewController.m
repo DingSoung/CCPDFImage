@@ -28,7 +28,7 @@
     [super viewDidLayoutSubviews];
     
     imageView.frame = self.view.bounds;
-    [[CCPDFImage instance] asyncGetImage:@"Group" bundle:[NSBundle mainBundle] page:1 size:imageView.bounds.size complete:^(UIImage * _Nullable image) {
+    [[CCPDFImage instance] asyncGetImage:@"Group" bundle:[NSBundle mainBundle] page:1 size:imageView.bounds.size mainQueueBlock:^(UIImage * _Nullable image) {
         imageView.image = image;
     }];
 }

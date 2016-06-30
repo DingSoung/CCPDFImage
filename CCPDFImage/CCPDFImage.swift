@@ -12,8 +12,7 @@ public class CCPDFImage: NSObject {
     public static let instance = CCPDFImage()
     private var _queue:dispatch_queue_t;
     private override init() {
-        _queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-        //dispatch_queue_create("com.dispatch.CCPDFImage", DISPATCH_QUEUE_CONCURRENT);
+        _queue = dispatch_queue_create("com.dispatch.CCPDFImage", DISPATCH_QUEUE_CONCURRENT);
         super.init()
         self.useRamCache = true
     }
@@ -40,33 +39,12 @@ public class CCPDFImage: NSObject {
         }
     }
     
-//    private var _cacheDirectory:String?
-//    public var cacheDirectory:String {
-//        get {
-//            if let dir = _cacheDirectory {
-//                return dir
-//            }
-//            if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.UserDomainMask, true).first {
-//                _cacheDirectory = dir + "/__PDF_CACHE__"
-//                do {
-//                    try NSFileManager.defaultManager().createDirectoryAtPath(dir, withIntermediateDirectories: true, attributes: nil)
-//                } catch {
-//                }
-//                return dir
-//            } else {
-//                return ""
-//            }
-//        }
-//        set {
-//            _cacheDirectory = newValue
-//        }
-//    }
-    
-    public final func asyncGetImage(resource:String, bundle:NSBundle, page:Int, size:CGSize, complete:((image:UIImage?)->Void)?) {
+    /// generate image at async quene and excuse block at main queue
+    public final func asyncGetImage(resource:String, bundle:NSBundle, page:Int, size:CGSize, mainQueueBlock:((image:UIImage?)->Void)?) {
         dispatch_async(_queue, { [weak self] () -> Void in
             let image = self?.image(resource, bundle: bundle, page: page, size: size)
             dispatch_async(dispatch_get_main_queue(), {
-                complete?(image: image)
+                mainQueueBlock?(image: image)
             })
         })
     }

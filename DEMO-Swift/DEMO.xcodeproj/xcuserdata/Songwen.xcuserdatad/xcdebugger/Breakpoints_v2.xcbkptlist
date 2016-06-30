@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../CCPDFImage/CCPDFImage.swift"
-            timestampString = "488972147.763758"
+            timestampString = "488973128.716509"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
             landmarkName = "image(_:page:size:)"
             landmarkType = "5">
          </BreakpointContent>
