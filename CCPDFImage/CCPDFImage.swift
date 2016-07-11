@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class CCPDFImage: NSObject {
+final public class CCPDFImage: NSObject {
     public static let instance = CCPDFImage()
     private var _queue:dispatch_queue_t;
     private override init() {
@@ -49,7 +49,7 @@ public class CCPDFImage: NSObject {
         })
     }
     
-    public func image(resource:String, bundle:NSBundle, page:Int, size:CGSize) -> UIImage? {
+    public final func image(resource:String, bundle:NSBundle, page:Int, size:CGSize) -> UIImage? {
         if(CGSizeEqualToSize(size, CGSizeZero) || page <= 0) {
             return nil;
         }
