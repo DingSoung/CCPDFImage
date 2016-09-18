@@ -10,9 +10,9 @@ import UIKit
 
 final public class CCPDFImage: NSObject {
     public static let instance = CCPDFImage()
-    private var _queue:dispatch_queue_t;
+    private var _queue:DispatchQueue;
     private override init() {
-        _queue = dispatch_queue_create("com.dispatch.CCPDFImage", DISPATCH_QUEUE_CONCURRENT);
+        _queue = DispatchQueue(label: "com.dispatch.CCPDFImage", attributes: DispatchQueue.Attributes.concurrent)
         super.init()
         self.useRamCache = true
     }
@@ -21,7 +21,7 @@ final public class CCPDFImage: NSObject {
         _ramCache = nil;
     }
     
-    private var _ramCache:NSCache?
+    private var _ramCache:NSCache<NSString, UIImage>?
     private var _useRamCache = false;
     public var useRamCache : Bool {
         set {
@@ -40,40 +40,38 @@ final public class CCPDFImage: NSObject {
     }
     
     /// generate image at async quene and excuse block at main queue
-    public final func asyncGetImage(resource:String, bundle:NSBundle, page:Int, size:CGSize, mainQueueBlock:((image:UIImage?)->Void)?) {
-        dispatch_async(_queue, { [weak self] () -> Void in
-            let image = self?.image(resource, bundle: bundle, page: page, size: size)
-            dispatch_async(dispatch_get_main_queue(), {
-                mainQueueBlock?(image: image)
-            })
-        })
+    public final func asyncGetImage(resource:String, bundle:Bundle, page:Int, size:CGSize, mainQueueBlock:((_: UIImage?)->Void)?) {
+        _queue.async { [weak self] () -> Void in
+            let image = self?.image(resource: resource, bundle: bundle, page: page, size: size)
+            DispatchQueue.main.async {
+                mainQueueBlock?(image)
+            }
+        }
     }
     
-    public final func image(resource:String, bundle:NSBundle, page:Int, size:CGSize) -> UIImage? {
-        if(CGSizeEqualToSize(size, CGSizeZero) || page <= 0) {
+    public final func image(resource:String, bundle:Bundle, page:Int, size:CGSize) -> UIImage? {
+        guard size.width > 0 && size.height > 0 && page > 0 else {
             return nil;
         }
         
-        guard let filePath = bundle.pathForResource(resource, ofType: "pdf") else {
+        guard let filePath = bundle.path(forResource: resource, ofType: "pdf") else {
             return nil;
         }
         
-        let cacheName = self.cacheName(filePath, page: page, size: size)
-        if let image = _ramCache?.objectForKey(cacheName) as? UIImage {
+        let cacheName = self.cacheName(filePath: filePath, page: page, size: size)
+        if let image = _ramCache?.object(forKey: cacheName as NSString) {
             return image
         }
         
-        let pdf = CGPDFDocumentCreateWithURL(NSURL.fileURLWithPath(filePath) as CFURLRef)
-        if (page > CGPDFDocumentGetNumberOfPages(pdf)) {
+        guard let pdf = CGPDFDocument(NSURL.fileURL(withPath: filePath) as CFURL) else {return nil}
+        if (page > pdf.numberOfPages) {
             return nil
         }
         
-        guard let image = self.image(pdf, page: page, size: size) else {
-            return nil
-        }
+        guard let image = self.image(pdf: pdf, page: page, size: size) else { return nil}
         
         if _useRamCache {
-            _ramCache?.setObject(image, forKey: cacheName)
+            _ramCache?.setObject(image, forKey: cacheName as NSString)
         }
         return image
     }
@@ -82,35 +80,36 @@ final public class CCPDFImage: NSObject {
     final private func cacheName(filePath:String, page:Int, size:CGSize) -> String {
         let fileParameter = "-\(page)-\(size.width)-\(size.height)"
         do {
-            let fileAttrbutes = try NSFileManager.defaultManager().attributesOfItemAtPath(filePath)
-            return filePath + fileParameter + "-\(fileAttrbutes[NSFileSize])-\(fileAttrbutes[NSFileModificationDate])" + ".png"
+            let fileAttrbutes = try FileManager.default.attributesOfItem(atPath: filePath)
+            return filePath + fileParameter + "-\(fileAttrbutes[FileAttributeKey.size])-\(fileAttrbutes[FileAttributeKey.modificationDate])" + ".png"
         } catch {
             return filePath + fileParameter + ".png"
         }
     }
     
     /// render image
-    final private func image(pdf:CGPDFDocument?, page:Int, size:CGSize) -> UIImage? {
-        let screenScale = UIScreen.mainScreen().scale // pix per bitMap @2x or @3x
+    final private func image(pdf:CGPDFDocument, page:Int, size:CGSize) -> UIImage? {
+        let screenScale = UIScreen.main.scale // pix per bitMap @2x or @3x
         
-        let pdfPage = CGPDFDocumentGetPage(pdf, page)
-        let pageFrame = CGPDFPageGetBoxRect(pdfPage, CGPDFBox.CropBox)
-        let context = CGBitmapContextCreate(nil,
-                                            Int(size.width * screenScale),
-                                            Int(size.height * screenScale),
-                                            8,
-                                            0,
-                                            CGColorSpaceCreateDeviceRGB(),
-                                            CGBitmapInfo.ByteOrderDefault.rawValue | CGImageAlphaInfo.PremultipliedFirst.rawValue)
-        CGContextScaleCTM(context, screenScale, screenScale) // scale pix / bit map
-        CGContextScaleCTM(context, size.width / pageFrame.size.width, size.height / pageFrame.size.height )  // target size scale file
-        CGContextTranslateCTM(context, -pageFrame.origin.x, -pageFrame.origin.y) // transform
-        CGContextDrawPDFPage(context, pdfPage); // rendering pdf
+        guard let pdfPage = pdf.page(at: page) else {return nil}
+        let pageFrame = pdfPage.getBoxRect(CGPDFBox.cropBox)
+        guard let context = CGContext(data: nil,
+                                width: Int(size.width * screenScale),
+                                height: Int(size.height * screenScale),
+                                bitsPerComponent: 8,
+                                bytesPerRow: 0,
+                                space: CGColorSpaceCreateDeviceRGB(),
+                                bitmapInfo: CGBitmapInfo.byteOrder32Little.rawValue | CGImageAlphaInfo.premultipliedFirst.rawValue)
+            else {return nil}
+        context.scaleBy(x: screenScale, y: screenScale) // scale pix / bit map
+        context.scaleBy(x: size.width / pageFrame.size.width, y: size.height / pageFrame.size.height )  // target size scale file
+        context.translateBy(x: -pageFrame.origin.x, y: -pageFrame.origin.y) // transform
+        context.drawPDFPage(pdfPage); // rendering pdf
         
-        guard let imageRef = CGBitmapContextCreateImage(context) else {
+        guard let imageRef = context.makeImage() else {
             return nil
         }
-        return UIImage(CGImage: imageRef, scale: screenScale, orientation: UIImageOrientation.Up)
+        return UIImage(cgImage: imageRef, scale: screenScale, orientation: UIImageOrientation.up)
     }
 }
 
