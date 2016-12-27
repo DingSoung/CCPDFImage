@@ -1,18 +1,13 @@
-//
-//  CCPDFImage.swift
-//  DEMO
-//
 //  Created by Songwen Ding on 4/14/16.
 //  Copyright © 2016 DingSoung. All rights reserved.
-//
 
 import UIKit
 
-final public class CCPDFImage: NSObject {
-    public static let instance = CCPDFImage()
+final public class PDFImage: NSObject {
+    public static let instance = PDFImage()
     private var _queue:DispatchQueue;
     private override init() {
-        _queue = DispatchQueue(label: "com.dispatch.CCPDFImage", attributes: DispatchQueue.Attributes.concurrent)
+        _queue = DispatchQueue(label: "com.dispatch.PDFImage", attributes: DispatchQueue.Attributes.concurrent)
         super.init()
         self.useRamCache = true
     }

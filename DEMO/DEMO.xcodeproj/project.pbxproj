@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE82B3D01E12A4970016B5C3 /* CCPDFImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE82B3CF1E12A4970016B5C3 /* CCPDFImage.swift */; };
 		CEA9E68F1D2505DA0013C3F0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA9E68E1D2505DA0013C3F0 /* main.m */; };
 		CEA9E6921D2505DA0013C3F0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA9E6911D2505DA0013C3F0 /* AppDelegate.m */; };
 		CEA9E6951D2505DA0013C3F0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA9E6941D2505DA0013C3F0 /* ViewController.m */; };
@@ -14,10 +15,10 @@
 		CEA9E69A1D2505DA0013C3F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA9E6991D2505DA0013C3F0 /* Assets.xcassets */; };
 		CEA9E69D1D2505DA0013C3F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA9E69B1D2505DA0013C3F0 /* LaunchScreen.storyboard */; };
 		CEA9E6C11D2505EA0013C3F0 /* Group.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CEA9E6C01D2505EA0013C3F0 /* Group.pdf */; };
-		CEA9E6C41D2505F40013C3F0 /* CCPDFImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9E6C31D2505F40013C3F0 /* CCPDFImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE82B3CF1E12A4970016B5C3 /* CCPDFImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCPDFImage.swift; sourceTree = "<group>"; };
 		CEA9E68A1D2505DA0013C3F0 /* DEMO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DEMO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA9E68E1D2505DA0013C3F0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CEA9E6901D2505DA0013C3F0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -33,7 +34,6 @@
 		CEA9E6B21D2505DA0013C3F0 /* DEMOUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DEMOUITests.m; sourceTree = "<group>"; };
 		CEA9E6B41D2505DA0013C3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEA9E6C01D2505EA0013C3F0 /* Group.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Group.pdf; sourceTree = "<group>"; };
-		CEA9E6C31D2505F40013C3F0 /* CCPDFImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCPDFImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,10 +47,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE82B3CE1E12A4970016B5C3 /* PDFImage */ = {
+			isa = PBXGroup;
+			children = (
+				CE82B3CF1E12A4970016B5C3 /* CCPDFImage.swift */,
+			);
+			name = PDFImage;
+			path = ../../PDFImage;
+			sourceTree = "<group>";
+		};
 		CEA9E6811D2505DA0013C3F0 = {
 			isa = PBXGroup;
 			children = (
-				CEA9E6C21D2505F40013C3F0 /* CCPDFImage */,
 				CEA9E68C1D2505DA0013C3F0 /* DEMO */,
 				CEA9E6A61D2505DA0013C3F0 /* DEMOTests */,
 				CEA9E6B11D2505DA0013C3F0 /* DEMOUITests */,
@@ -69,6 +77,7 @@
 		CEA9E68C1D2505DA0013C3F0 /* DEMO */ = {
 			isa = PBXGroup;
 			children = (
+				CE82B3CE1E12A4970016B5C3 /* PDFImage */,
 				CEA9E6C01D2505EA0013C3F0 /* Group.pdf */,
 				CEA9E6901D2505DA0013C3F0 /* AppDelegate.h */,
 				CEA9E6911D2505DA0013C3F0 /* AppDelegate.m */,
@@ -107,15 +116,6 @@
 				CEA9E6B41D2505DA0013C3F0 /* Info.plist */,
 			);
 			path = DEMOUITests;
-			sourceTree = "<group>";
-		};
-		CEA9E6C21D2505F40013C3F0 /* CCPDFImage */ = {
-			isa = PBXGroup;
-			children = (
-				CEA9E6C31D2505F40013C3F0 /* CCPDFImage.swift */,
-			);
-			name = CCPDFImage;
-			path = ../CCPDFImage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,7 +193,7 @@
 			files = (
 				CEA9E6951D2505DA0013C3F0 /* ViewController.m in Sources */,
 				CEA9E6921D2505DA0013C3F0 /* AppDelegate.m in Sources */,
-				CEA9E6C41D2505F40013C3F0 /* CCPDFImage.swift in Sources */,
+				CE82B3D01E12A4970016B5C3 /* CCPDFImage.swift in Sources */,
 				CEA9E68F1D2505DA0013C3F0 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

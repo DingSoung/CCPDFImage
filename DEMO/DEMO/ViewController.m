@@ -21,14 +21,14 @@
     
     imageView = [[UIImageView alloc] init];
     [self.view addSubview:imageView];
-    [CCPDFImage instance].useRamCache = YES;
+    [PDFImage instance].useRamCache = YES;
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
     imageView.frame = self.view.bounds;
-    [[CCPDFImage instance] asyncGetImageWithResource:@"Group" bundle:[NSBundle mainBundle] page:1 size:imageView.bounds.size mainQueueBlock:^(UIImage *image) {
+    [[PDFImage instance] asyncGetImageWithResource:@"Group" bundle:[NSBundle mainBundle] page:1 size:imageView.bounds.size mainQueueBlock:^(UIImage *image) {
         imageView.image = image;
     }];
     
