@@ -76,7 +76,7 @@ final public class PDFImage: NSObject {
         let fileParameter = "-\(page)-\(size.width)-\(size.height)"
         do {
             let fileAttrbutes = try FileManager.default.attributesOfItem(atPath: filePath)
-            return filePath + fileParameter + "-\(fileAttrbutes[FileAttributeKey.size])-\(fileAttrbutes[FileAttributeKey.modificationDate])" + ".png"
+            return filePath + fileParameter + "-\(String(describing: fileAttrbutes[FileAttributeKey.size]))-\(String(describing: fileAttrbutes[FileAttributeKey.modificationDate]))" + ".png"
         } catch {
             return filePath + fileParameter + ".png"
         }

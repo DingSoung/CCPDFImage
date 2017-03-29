@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE82B3D01E12A4970016B5C3 /* CCPDFImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE82B3CF1E12A4970016B5C3 /* CCPDFImage.swift */; };
+		CE82B3D01E12A4970016B5C3 /* PDFImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE82B3CF1E12A4970016B5C3 /* PDFImage.swift */; };
 		CEA9E68F1D2505DA0013C3F0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA9E68E1D2505DA0013C3F0 /* main.m */; };
 		CEA9E6921D2505DA0013C3F0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA9E6911D2505DA0013C3F0 /* AppDelegate.m */; };
 		CEA9E6951D2505DA0013C3F0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA9E6941D2505DA0013C3F0 /* ViewController.m */; };
@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CE82B3CF1E12A4970016B5C3 /* CCPDFImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCPDFImage.swift; sourceTree = "<group>"; };
+		CE82B3CF1E12A4970016B5C3 /* PDFImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFImage.swift; sourceTree = "<group>"; };
 		CEA9E68A1D2505DA0013C3F0 /* DEMO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DEMO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA9E68E1D2505DA0013C3F0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CEA9E6901D2505DA0013C3F0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -50,7 +50,7 @@
 		CE82B3CE1E12A4970016B5C3 /* PDFImage */ = {
 			isa = PBXGroup;
 			children = (
-				CE82B3CF1E12A4970016B5C3 /* CCPDFImage.swift */,
+				CE82B3CF1E12A4970016B5C3 /* PDFImage.swift */,
 			);
 			name = PDFImage;
 			path = ../../PDFImage;
@@ -193,7 +193,7 @@
 			files = (
 				CEA9E6951D2505DA0013C3F0 /* ViewController.m in Sources */,
 				CEA9E6921D2505DA0013C3F0 /* AppDelegate.m in Sources */,
-				CE82B3D01E12A4970016B5C3 /* CCPDFImage.swift in Sources */,
+				CE82B3D01E12A4970016B5C3 /* PDFImage.swift in Sources */,
 				CEA9E68F1D2505DA0013C3F0 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -318,6 +318,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = DingSoung.DEMO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;

@@ -31,6 +31,10 @@
     [[PDFImage instance] asyncGetImageWithResource:@"Group" bundle:[NSBundle mainBundle] page:1 size:imageView.bounds.size mainQueueBlock:^(UIImage *image) {
         imageView.image = image;
     }];
+    for (int i = 0; i < 1000; i++) {
+        id image = [[PDFImage instance] imageWithResource:@"Group" bundle:[NSBundle mainBundle] page:1 size:imageView.bounds.size];
+        NSLog(@"%@",image);
+    }
     
 }
 - (void)didReceiveMemoryWarning {
