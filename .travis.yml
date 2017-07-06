@@ -1,0 +1,8 @@
+language: swift
+os: osx
+osx_image: xcode8.3
+before_install:
+script:
+  - xcodebuild clean -scheme PDFImage | xcpretty
+  - xcodebuild -project PDFImage.xcodeproj -scheme PDFImage -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.3' | xcpretty
+  
