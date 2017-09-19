@@ -3,15 +3,14 @@
 
 import UIKit
 
+@objcMembers
 final public class PDFImage: NSObject {
     public static let instance = PDFImage()
-    private var _queue:DispatchQueue;
     private override init() {
-        _queue = DispatchQueue(label: "com.dispatch.PDFImage", attributes: DispatchQueue.Attributes.concurrent)
         super.init()
         self.useRamCache = true
     }
-    
+
     deinit {
         _ramCache = nil;
     }
@@ -31,16 +30,6 @@ final public class PDFImage: NSObject {
         }
         get {
             return _useRamCache;
-        }
-    }
-    
-    /// generate image at async quene and excuse block at main queue
-    public final func asyncGetImage(resource:String, bundle:Bundle, page:Int, size:CGSize, mainQueueBlock:((_: UIImage?)->Void)?) {
-        _queue.async { [weak self] () -> Void in
-            let image = self?.image(resource: resource, bundle: bundle, page: page, size: size)
-            DispatchQueue.main.async {
-                mainQueueBlock?(image)
-            }
         }
     }
     
