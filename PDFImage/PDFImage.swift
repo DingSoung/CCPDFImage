@@ -34,29 +34,18 @@ final public class PDFImage: NSObject {
     }
     
     public final func image(resource:String, bundle:Bundle, page:Int, size:CGSize) -> UIImage? {
-        guard size.width > 0 && size.height > 0 && page > 0 else {
-            return nil;
-        }
-        
-        guard let filePath = bundle.path(forResource: resource, ofType: "pdf") else {
-            return nil;
-        }
-        
+        guard size.width > 0 && size.height > 0 && page > 0 else {return nil;}
+        guard let filePath = bundle.path(forResource: resource, ofType: "pdf") else {return nil;}
         let cacheName = self.cacheName(filePath: filePath, page: page, size: size)
-        if let image = _ramCache?.object(forKey: cacheName as NSString) {
-            return image
-        }
-        
-        guard let pdf = CGPDFDocument(NSURL.fileURL(withPath: filePath) as CFURL) else {return nil}
-        if (page > pdf.numberOfPages) {
-            return nil
-        }
-        
+        // use cache
+        if let image = _ramCache?.object(forKey: cacheName as NSString) {return image}
+        // render
+        guard let pdfDoc = CGPDFDocument(NSURL.fileURL(withPath: filePath) as CFURL) else {return nil}
+        guard page > pdfDoc.numberOfPages else {return nil}
+        guard let pdfPage = pdf.page(at: page) else {return nil}
         guard let image = self.image(pdf: pdf, page: page, size: size) else { return nil}
-        
-        if _useRamCache {
-            _ramCache?.setObject(image, forKey: cacheName as NSString)
-        }
+        // cache
+        if _useRamCache {_ramCache?.setObject(image, forKey: cacheName as NSString)}
         return image
     }
     
@@ -72,24 +61,21 @@ final public class PDFImage: NSObject {
     }
     
     /// render image
-    final private func image(pdf:CGPDFDocument, page:Int, size:CGSize) -> UIImage? {
+    final private func image(pdf:CGPDFPage, size:CGSize) -> UIImage? {
+        let pageFrame = pdf.getBoxRect(CGPDFBox.cropBox)
         let screenScale = UIScreen.main.scale // pix per bitMap @2x or @3x
-        
-        guard let pdfPage = pdf.page(at: page) else {return nil}
-        let pageFrame = pdfPage.getBoxRect(CGPDFBox.cropBox)
         guard let context = CGContext(data: nil,
-                                width: Int(size.width * screenScale),
-                                height: Int(size.height * screenScale),
-                                bitsPerComponent: 8,
-                                bytesPerRow: 0,
-                                space: CGColorSpaceCreateDeviceRGB(),
-                                bitmapInfo: CGBitmapInfo.byteOrder32Little.rawValue | CGImageAlphaInfo.premultipliedFirst.rawValue)
+                                      width: Int(size.width * screenScale),
+                                      height: Int(size.height * screenScale),
+                                      bitsPerComponent: 8,
+                                      bytesPerRow: 0,
+                                      space: CGColorSpaceCreateDeviceRGB(),
+                                      bitmapInfo: CGBitmapInfo.byteOrder32Little.rawValue | CGImageAlphaInfo.premultipliedFirst.rawValue)
             else {return nil}
         context.scaleBy(x: screenScale, y: screenScale) // scale pix / bit map
         context.scaleBy(x: size.width / pageFrame.size.width, y: size.height / pageFrame.size.height )  // target size scale file
         context.translateBy(x: -pageFrame.origin.x, y: -pageFrame.origin.y) // transform
         context.drawPDFPage(pdfPage); // rendering pdf
-        
         guard let imageRef = context.makeImage() else {
             return nil
         }
