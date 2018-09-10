@@ -14,7 +14,7 @@ final public class PDFImage: NSObject {
     deinit {
         _ramCache = nil;
     }
-    
+
     private var _ramCache:NSCache<NSString, UIImage>?
     private var _useRamCache = false;
     public var useRamCache : Bool {
@@ -32,25 +32,25 @@ final public class PDFImage: NSObject {
             return _useRamCache;
         }
     }
-    
-    public final func image(resource:String, bundle:Bundle, page:Int, size:CGSize) -> UIImage? {
+
+    public final func image(resource: String, bundle: Bundle, page: Int, size: CGSize) -> UIImage? {
         guard size.width > 0 && size.height > 0 && page > 0 else {return nil;}
         guard let filePath = bundle.path(forResource: resource, ofType: "pdf") else {return nil;}
         let cacheName = self.cacheName(filePath: filePath, page: page, size: size)
         // use cache
         if let image = _ramCache?.object(forKey: cacheName as NSString) {return image}
         // render
-        guard let pdfDoc = CGPDFDocument(NSURL.fileURL(withPath: filePath) as CFURL) else {return nil}
-        guard page > pdfDoc.numberOfPages else {return nil}
-        guard let pdfPage = pdf.page(at: page) else {return nil}
-        guard let image = self.image(pdf: pdf, page: page, size: size) else { return nil}
+        guard let pdf = CGPDFDocument(NSURL.fileURL(withPath: filePath) as CFURL) else {return nil}
+        guard page > pdf.numberOfPages else { return nil }
+        guard let pdfPage = pdf.page(at: page) else { return nil }
+        guard let image = self.image(pdfPage: pdfPage, size: size) else { return nil}
         // cache
         if _useRamCache {_ramCache?.setObject(image, forKey: cacheName as NSString)}
         return image
     }
-    
+
     /// struct cache name
-    final private func cacheName(filePath:String, page:Int, size:CGSize) -> String {
+    final private func cacheName(filePath: String, page: Int, size: CGSize) -> String {
         let fileParameter = "-\(page)-\(size.width)-\(size.height)"
         do {
             let fileAttrbutes = try FileManager.default.attributesOfItem(atPath: filePath)
@@ -59,10 +59,10 @@ final public class PDFImage: NSObject {
             return filePath + fileParameter + ".png"
         }
     }
-    
+
     /// render image
-    final private func image(pdf:CGPDFPage, size:CGSize) -> UIImage? {
-        let pageFrame = pdf.getBoxRect(CGPDFBox.cropBox)
+    final private func image(pdfPage: CGPDFPage, size: CGSize) -> UIImage? {
+        let pageFrame = pdfPage.getBoxRect(CGPDFBox.cropBox)
         let screenScale = UIScreen.main.scale // pix per bitMap @2x or @3x
         guard let context = CGContext(data: nil,
                                       width: Int(size.width * screenScale),
